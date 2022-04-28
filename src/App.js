@@ -1,23 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+import testBackground from './images/gray-background.jpg';
+import animeFace from './images/anime-face.png';
+// import { ReactSVG } from 'react-svg';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='middle-center'>
+      <img src={testBackground} className='base' alt='background' />
+      <img src={animeFace} className='face' alt='face' height={150} />
     </div>
   );
 }
