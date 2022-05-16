@@ -26,7 +26,6 @@ const getResultPercentages = (dataset) => {
   const totalItems = dataset.length
   const uniqueItems = [...new Set(dataset)]
   uniqueItems.forEach(currentData => {
-    obj = {};
     const numItems = dataset.filter(data => data === currentData);
     response.push([currentData, `${numItems.length * 100 / totalItems}%`])
   });
@@ -43,19 +42,24 @@ const generate = (times, attr) => {
   return getResultPercentages(response);
 }
 
-const generateNFT = (amount) => {
+export const generateNFT = (amount) => {
   let nft = {};
   const response = [];
 
+  const background = generate(1, 'backgrounds');
+  const body = generate(1, 'bodies');
+  const face = generate(1, 'faces');
+  const hat = generate(1, 'hats');
+
   for (var i=0; i<amount; i++) {
     nft = {
-      backgrounds: generate(1, 'backgrounds'),
-      bodies: generate(1, 'bodies'),
-      faces: generate(1, 'faces'),
-      hats: generate(1, 'hats'),
+      backgrounds: background[0][0],
+      bodies: body[0][0],
+      faces: face[0][0],
+      hats: hat[0][0],
     };
 
-    response.push(JSON.stringify(nft))
+    response.push(nft)
   }
    
   return response;

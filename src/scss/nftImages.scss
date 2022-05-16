@@ -1,0 +1,12 @@
+.nft-box {
+  border: 3px solid #333;
+}
+
+// talves hay que quitar el position absolute
+.nft-img {
+  width: 200px;
+  position: absolute;
+  top: 200;
+  left: 200;
+  z-index: 1;
+}
