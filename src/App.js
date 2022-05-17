@@ -1,5 +1,5 @@
-import AdminPanel from './pages/AdminPanel';
-import NftSpecifics from './pages/NftSpecifics';
+import AdminPanel from './pages/adminPanel';
+import NftSpecifics from './pages/nftSpecifics';
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes, Link} from 'react-router-dom';
 import './scss/App.scss';
