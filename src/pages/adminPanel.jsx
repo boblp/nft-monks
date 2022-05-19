@@ -11,7 +11,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import LinkIcon from '@mui/icons-material/Link';
 import { generateNFT } from '../generator/generator';
 import Nft from '../components/Nft'
-import '../scss/AdminPanel.scss';
+import '../scss/adminPanel.scss';
 
 export default function AdminPanel (props){
   const drawerWidth = 360;
