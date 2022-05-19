@@ -97,6 +97,7 @@ export default function BulkGenerator (){
             sx={{ width: '80px' }}
             focused />
             <Button 
+              color="success"
               variant="contained" 
               endIcon={<AddBoxIcon />}
               sx={{ marginLeft: '10px' }}
@@ -169,7 +170,11 @@ export default function BulkGenerator (){
             )
           })}
 
-          { nftPool.length === 0 && <h4>No Nfts here</h4>}
+          { nftPool.length === 0 && <Grid item xs={12}>
+            <Typography variant="h4" gutterBottom component="div" align="center">
+              No NFTs here...
+            </Typography>
+          </Grid>}
         </Grid>
       </Grid>
 
