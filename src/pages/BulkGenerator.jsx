@@ -9,7 +9,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import '../scss/adminPanel.scss';
+import '../scss/AdminPanel.scss';
 
 export default function BulkGenerator (){
   const [nftPool, setNftPool] = useState([]);

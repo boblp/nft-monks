@@ -1,55 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
 
-export default function AttributesForm (props){
-    const { traits } = props;
-    const defaultValues = traits.map(val=>{
-        return 1;
-    });
-    console.log(defaultValues)
-    const [formValues, setFormValues] = useState(defaultValues);
+export default function AttributesForm(props) {
+  const { traits, handleInputChange, values } = props;
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(formValues);
-    };
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <Grid container alignItems="center" justify="center" direction="column">
-                <Grid item>
-                    {traits.map((trade,index)=>{
-                            return (
-                                <FormControl>
-                                    <FormLabel>{trade.label}</FormLabel>
-                                    <Select name={traits.name} value={formValues[index]} onChange={handleInputChange}>
-                                        {trade.options.map(option=>{
-                                            return (<MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)
-                                        })}
-                                    </Select>
-                                </FormControl>
-                            );
-                        })
-                    }
-                </Grid>
-                <Button variant="contained" color="primary" type="submit">
-                    Submit
-                </Button>
+  return (
+    <form>
+      <h2>Traits</h2>
+      <Grid
+        container
+        alignItems="alignItems"
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        {Object.keys(traits).map((trait, index) => {
+          return (
+            <Grid item xs={6}>
+              <FormControl key={index} fullWidth >
+                <FormLabel>{trait}</FormLabel>
+                <Select name={trait} value={values[trait] ?? ""} onChange={handleInputChange}>
+                  {traits[trait].map((option, key) => {
+                    return (<MenuItem key={key} value={option}>{option}</MenuItem>)
+                  })}
+                </Select>
+              </FormControl>
             </Grid>
-        </form>
-    );
+          );
+        })}
+      </Grid>
+    </form>
+  );
 
 }

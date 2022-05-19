@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Grid from "@mui/material/Grid";
 import { traits } from '../traits';
-import AForm from '../components/AttributesForm';
+import AForm from '../components/attributesForm';
+import ImgDisplay from '../components/imgDisplay';
 
 export default function NftSpecifics () {
+  const [traitsSelected, setTraitsSelected] = useState({});
+  
+  useEffect(()=>{
+    let defaultValues = {};
+    Object.keys(traits).map(trait => {
+      defaultValues[trait] = traits[trait][0];
+    })
+    setTraitsSelected(defaultValues);
+  },[traits])
+
+  const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setTraitsSelected({
+          ...traitsSelected,
+          [name]: value,
+      });
+  };
+
   return (
-    <div>
-      <AForm traits={traits} />
-    </div>
+    <Grid 
+      container 
+      direction="row"
+      alignItems="alignItems" 
+      justifyContent="space-evenly" 
+      spacing={2}>
+      <Grid item xs={4} m={5}>
+        <AForm 
+          handleInputChange={handleInputChange}
+          values={traitsSelected}
+          traits={traits} />
+      </Grid>
+      <Grid item xs m={3}>
+        <ImgDisplay traitsObj={traitsSelected} />
+      </Grid>
+    </Grid>
   )
 }
