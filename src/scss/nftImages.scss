@@ -1,15 +1,13 @@
 .nft-box {
   box-sizing: content-box;
   position: relative;
-  width: 200px;
   display: flex;
-  margin-left: 5px;
   button {
     width: 100%;
   }
   .nft-img {
     margin-top: 26px;
-    width: 200px;
+    width: 100%;
     position: absolute;
     z-index: 1;
   }

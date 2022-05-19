@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input } from '@mui/material';
+import { Button, Input, Grid } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import Container from '@mui/material/Container';
 import { generateNFT } from '../generator/generator';
@@ -26,11 +26,15 @@ export default function BulkGenerator (){
       >
         Generate NFT
       </Button>
-      <div id="nft-container">
+      <Grid container spacing="5">
         {nftPool.map((nft, i) => {        
-          return (<Nft key={i} nftObject={nft[0]} />) 
+          return (
+            <Grid item xs={2}>
+              <Nft key={i} nftObject={nft[0]} controls="true" />
+            </Grid>
+          )
         })}
-      </div>
+      </Grid>
     </Container>
   );
 }
