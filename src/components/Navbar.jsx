@@ -54,6 +54,9 @@ function Navbar() {
             <Link to="nft_builder" style={{ textDecoration: 'none', color: 'inherit' }}>
               <MenuItem onClick={handleClose}>NFT Builder</MenuItem>
             </Link>
+            <Link to="pool_analytics" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <MenuItem onClick={handleClose}>Pool Analytics</MenuItem>
+            </Link>
           </Menu>
           <Typography variant="h6" color="inherit" component="div">
             NFT in-house tools

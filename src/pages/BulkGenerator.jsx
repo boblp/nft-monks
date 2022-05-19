@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import { generateNFT } from '../generator/generator';
 import Nft from '../components/Nft';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -32,6 +33,19 @@ export default function BulkGenerator (){
     navigator.clipboard.writeText(obj);
   };
 
+  const loadPool = async () => {
+    const text = await navigator.clipboard.readText();
+    const parsedVal = JSON.parse(text)
+    
+    if (Array.isArray(parsedVal)) {
+      setNftPool([...nftPool, ...parsedVal])
+    } else if (Object(parsedVal) === parsedVal) {
+      setNftPool([...nftPool, parsedVal])
+    } else {
+      alert('Invalid array or object')
+    }
+  }
+
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -47,8 +61,9 @@ export default function BulkGenerator (){
   return (
     <Container maxWidth="xl">
       <Grid container spacing="5">
-        <Grid item xs={12} sx={{ marginBottom: '30px' }}>
-          <TextField
+        <Grid item xs={12} sx={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between' }}>  
+          <div>
+            <TextField
             label="Amount"
             size="small"
             value={generateAmount}
@@ -56,16 +71,39 @@ export default function BulkGenerator (){
             type="number"
             sx={{ width: '80px' }}
             focused />
-          <Button 
-            variant="contained" 
-            endIcon={<AddBoxIcon />}
-            sx={{ marginLeft: '10px' }}
-            onClick={() => {
-              generate();
-            }}
-          >
-            Generate
-          </Button>
+            <Button 
+              variant="contained" 
+              endIcon={<AddBoxIcon />}
+              sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                generate();
+              }}
+            >
+              Generate
+            </Button>
+          </div>
+          <div>
+            <Button 
+              variant="contained" 
+              endIcon={<ContentCopyIcon />}
+              sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                copyObj(JSON.stringify(nftPool));
+              }}
+            >
+              Copy Pool
+            </Button>
+            <Button 
+              variant="contained" 
+              endIcon={<FileUploadIcon />}
+              sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                loadPool()
+              }}
+            >
+              Load Pool
+            </Button>
+          </div>
         </Grid>
         {nftPool.map((nft, i) => {        
           return (
@@ -95,7 +133,7 @@ export default function BulkGenerator (){
                 copyObj(JSON.stringify(jsonObj));
               }}
             >
-              Copy
+              Copy Object
             </Button>
           </div>
           <pre className="code-view">
