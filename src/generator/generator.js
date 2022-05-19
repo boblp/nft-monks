@@ -46,12 +46,14 @@ export const generateNFT = (amount) => {
   let nft = {};
   const response = [];
 
-  const background = generate(1, 'backgrounds');
-  const body = generate(1, 'bodies');
-  const face = generate(1, 'faces');
-  const hat = generate(1, 'hats');
+  let background, body, face, hat;
 
   for (var i=0; i<amount; i++) {
+    background = generate(1, 'backgrounds');
+    body = generate(1, 'bodies');
+    face = generate(1, 'faces');
+    hat = generate(1, 'hats');
+
     nft = {
       backgrounds: background[0][0],
       bodies: body[0][0],

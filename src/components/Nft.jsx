@@ -29,7 +29,7 @@ export default function Nft({ nftObject, controls, size }) {
         <Button 
           variant="contained" 
           size="small"
-          sx={{ borderRadius: '0px' }}
+          sx={{ borderRadius: '0px', minWidth: '0px' }}
           endIcon={<DownloadIcon />}
           onClick={() => {
             download();
@@ -37,7 +37,7 @@ export default function Nft({ nftObject, controls, size }) {
         <Button 
           variant="contained"
           size="small"
-          sx={{ borderRadius: '0px' }}
+          sx={{ borderRadius: '0px', minWidth: '0px' }}
           endIcon={<RemoveRedEyeIcon />}
           onClick={() => {
             download();
