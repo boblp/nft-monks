@@ -4,7 +4,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import '../scss/nftImages.scss';
 
-export default function Nft({ nftObject, controls, size }) {
+export default function Nft({ nftObject, controls, size, viewJSON }) {
   const {
     backgrounds,
     bodies,
@@ -40,7 +40,7 @@ export default function Nft({ nftObject, controls, size }) {
           sx={{ borderRadius: '0px', minWidth: '0px' }}
           endIcon={<RemoveRedEyeIcon />}
           onClick={() => {
-            download();
+            viewJSON(nftObject);
           }} />
       </div>
     )
