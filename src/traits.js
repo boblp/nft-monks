@@ -1,4 +1,4 @@
-export const trades = [
+export const traits = [
     {
         name:"trade1",
         class:"col-6",

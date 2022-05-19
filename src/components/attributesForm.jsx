@@ -7,8 +7,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 
 export default function AttributesForm (props){
-    const { trades } = props;
-    const defaultValues = trades.map(val=>{
+    const { traits } = props;
+    const defaultValues = traits.map(val=>{
         return 1;
     });
     console.log(defaultValues)
@@ -31,11 +31,11 @@ export default function AttributesForm (props){
         <form onSubmit={handleSubmit}>
             <Grid container alignItems="center" justify="center" direction="column">
                 <Grid item>
-                    {trades.map((trade,index)=>{
+                    {traits.map((trade,index)=>{
                             return (
                                 <FormControl>
                                     <FormLabel>{trade.label}</FormLabel>
-                                    <Select name={trades.name} value={formValues[index]} onChange={handleInputChange}>
+                                    <Select name={traits.name} value={formValues[index]} onChange={handleInputChange}>
                                         {trade.options.map(option=>{
                                             return (<MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)
                                         })}

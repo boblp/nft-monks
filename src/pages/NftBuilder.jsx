@@ -1,9 +1,11 @@
 import React from 'react';
-import {trades} from '../trades';
-import Form from '../components/AttributesForm';
+import { traits } from '../traits';
+import AForm from '../components/AttributesForm';
 
 export default function NftSpecifics () {
   return (
-    <Form trades={trades} />
+    <div>
+      <AForm traits={traits} />
+    </div>
   )
 }

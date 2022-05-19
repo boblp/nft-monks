@@ -1,4 +1,7 @@
 import mergeImages from 'merge-images';
+import Button from '@mui/material/Button';
+import DownloadIcon from '@mui/icons-material/Download';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import '../scss/nftImages.scss';
 
 export default function Nft({ nftObject }) {
@@ -22,7 +25,22 @@ export default function Nft({ nftObject }) {
 
   return (
     <div className="nft-box">
-      <button onClick={() => download()}>Download</button>
+      <Button 
+        variant="contained" 
+        size="small"
+        sx={{ borderRadius: '0px' }}
+        endIcon={<DownloadIcon />}
+        onClick={() => {
+          download();
+        }} />
+      <Button 
+        variant="contained"
+        size="small"
+        sx={{ borderRadius: '0px' }}
+        endIcon={<RemoveRedEyeIcon />}
+        onClick={() => {
+          download();
+        }} />
       <img className="nft-img" src={require(`../images/test_images/backgrounds/${backgrounds}.png`)} alt="not found" />
       <img className="nft-img" src={require(`../images/test_images/bodies/${bodies}.png`)} alt="not found" />
       <img className="nft-img" src={require(`../images/test_images/faces/${faces}.png`)} alt="not found" />

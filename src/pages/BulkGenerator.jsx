@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
+import { Button, Input } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import Container from '@mui/material/Container';
 import { generateNFT } from '../generator/generator';
