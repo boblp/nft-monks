@@ -9,18 +9,28 @@ export default function NftSpecifics () {
   
   useEffect(()=>{
     let defaultValues = {};
-    Object.keys(traits).map(trait => {
+    Object.keys(traits).forEach(trait => {
       defaultValues[trait] = traits[trait][0];
     })
     setTraitsSelected(defaultValues);
-  },[traits])
+  },[])
 
   const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setTraitsSelected({
-          ...traitsSelected,
-          [name]: value,
-      });
+    const { name, value } = e.target;
+    setTraitsSelected({
+        ...traitsSelected,
+        [name]: value,
+    });
+  };
+
+  const randomize = () => {
+    const randomObj = {}
+    Object.entries(traits).forEach((v) => {
+      const random = v[1][(Math.random() * v[1].length) | 0];
+      randomObj[v[0]] = random;
+    })
+
+    setTraitsSelected(randomObj)
   };
 
   return (
@@ -30,11 +40,12 @@ export default function NftSpecifics () {
       alignItems="alignItems" 
       justifyContent="space-evenly" 
       spacing={2}>
-      <Grid item xs={4} m={5}>
+      <Grid item xs={4} m={5} sx={{ marginTop: '10px' }}>
         <AForm 
           handleInputChange={handleInputChange}
           values={traitsSelected}
-          traits={traits} />
+          traits={traits}
+          randomize={randomize} />
       </Grid>
       <Grid item xs m={3}>
         <ImgDisplay traitsObj={traitsSelected} />

@@ -10,21 +10,17 @@ export default function ImgDisplay({traitsObj}) {
       <Grid
         container
         justifyContent="center"
-        alignItems="alignItems"
-        rowSpacing={1}
-        columnSpacing={{ xs: 1 }}
-        maxWidth="xl">
-        <Grid item>
-          <h2>Image</h2>
-            <Box className="img-box">
-              {traitsObj && Object.keys(traitsObj).length > 0 ? 
-                <Nft 
-                nftObject={traitsObj}
-                controls={false}
-                size="450px"
-                viewJSON={false}/>
-              : ""}
-            </Box>
+        alignItems="alignItems">
+        <Grid item xs={11} lg={8}>
+          <Box>
+            {traitsObj && Object.keys(traitsObj).length > 0 ? 
+              <Nft 
+              nftObject={traitsObj}
+              controls={false}
+              size="100%"
+              viewJSON={false}/>
+            : ""}
+          </Box>
         </Grid>
       </Grid>
     </div>
