@@ -6,17 +6,24 @@ import { generateNFT } from '../generator/generator';
 import Nft from '../components/Nft';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import '../scss/AdminPanel.scss';
+import '../scss/adminPanel.scss';
+
 
 export default function BulkGenerator (){
   const [nftPool, setNftPool] = useState([]);
   const [generateAmount, setGenerateAmount] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
-  const handleModalClose = () => setModalOpen(false);
   const [jsonObj, setJsonObj] = useState('');
+  const [showDelete, setShowDelete] = useState(false);
+  const handleShowDelete = () => setShowDelete(true);
+  const handleHideDelete = () => setShowDelete(false);
+
+  const handleModalClose = () => setModalOpen(false);
 
   const generate = () => {
     const newNft = generateNFT(generateAmount);
@@ -46,6 +53,16 @@ export default function BulkGenerator (){
     }
   }
 
+  const deleteNft = (index) => {
+    const array = [...nftPool];
+    array.splice(index, 1);
+    setNftPool(array);
+  };
+
+  const deleteAll = () => {
+    setNftPool([]);
+  }
+
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -56,6 +73,16 @@ export default function BulkGenerator (){
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+  };
+
+  const deleteIconStyle = {
+    position: 'absolute',
+    zIndex: 99,
+    backgroundColor: 'white',
+    borderRadius: '100%',
+    border: '3px solid #333',
+    padding: '0px',
+    margin: '90% 75%'
   };
 
   return (
@@ -72,6 +99,7 @@ export default function BulkGenerator (){
             sx={{ width: '80px' }}
             focused />
             <Button 
+              color="success"
               variant="contained" 
               endIcon={<AddBoxIcon />}
               sx={{ marginLeft: '10px' }}
@@ -103,15 +131,53 @@ export default function BulkGenerator (){
             >
               Load Pool
             </Button>
+            <Button 
+              variant="contained" 
+              color="error"
+              endIcon={<DeleteIcon />}
+              sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                deleteAll()
+              }}
+            >
+              Delete All
+            </Button>
           </div>
         </Grid>
-        {nftPool.map((nft, i) => {        
-          return (
-            <Grid item xs={4} sm={3} md={2} lg={1} key={i}>
-              <Nft key={i} nftObject={nft} controls="true" viewJSON={viewJSON} />
-            </Grid>
-          )
-        })}
+        <Grid container spacing="5">
+          {nftPool.map((nft, i) => {        
+            return (
+              <Grid
+                xs={4}
+                sm={3}
+                md={2}
+                lg={1}
+                key={i}
+                item
+                sx={{ position: 'relative' }}
+                onMouseOver={handleShowDelete}
+                onMouseLeave={handleHideDelete}>
+                {showDelete && <IconButton
+                    color="error"
+                    sx={deleteIconStyle}
+                    onClick={() => {
+                      deleteNft(i);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                }
+                <Nft key={i} nftObject={nft} controls="true" viewJSON={viewJSON} />
+              </Grid>
+            )
+          })}
+
+          { nftPool.length === 0 && <Grid item xs={12}>
+            <Typography variant="h4" gutterBottom component="div" align="center">
+              No NFTs here...
+            </Typography>
+          </Grid>}
+        </Grid>
       </Grid>
 
       <Modal
