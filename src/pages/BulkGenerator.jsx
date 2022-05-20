@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import '../scss/adminPanel.scss';
 
 
 export default function BulkGenerator (){
