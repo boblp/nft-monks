@@ -14,13 +14,20 @@ export default function Nft({ nftObject, controls, size, viewJSON }) {
 
   const download = () => {
     mergeImages([
-      `./images/test_images/backgrounds/${backgrounds}.png`,
-      `./images/test_images/bodies/${bodies}.png`,
-      `./images/test_images/faces/${faces}.png`,
-      `./images/test_images/hats/${hats}.png`
+      require(`../images/test_images/backgrounds/${backgrounds}.png`),
+      require(`../images/test_images/bodies/${bodies}.png`),
+      require(`../images/test_images/faces/${faces}.png`),
+      require(`../images/test_images/hats/${hats}.png`)
     ]).then((b64) => {
-      console.log(b64)
+      downloadImg(b64, "image", ".png");
     });
+  }
+
+  const downloadImg = (b64, fileName, format) =>{
+    const a = document.createElement("a");
+    a.href = `${b64}`;
+    a.download = `${fileName}${format}`;
+    a.click();
   }
 
   const Controls = () => {
