@@ -4,10 +4,22 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ShuffleIcon from '@mui/icons-material/Shuffle';
-import { InputLabel, Button } from "@mui/material";
+import { InputLabel, Button, TextareaAutosize } from "@mui/material";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Box from '@mui/material/Box';
 
 export default function AttributesForm(props) {
-  const { traits, handleInputChange, values, randomize } = props;
+  const { traits, handleInputChange, handleTextChange, values, randomize } = props;
+  const modalStyle = {
+    position: 'relative',
+    width: 400,
+    margin: '20px 0px 0px 0px',
+    p: 2
+  };
+
+  const copyObj = (obj) => {
+    navigator.clipboard.writeText(obj);
+  };
 
   return (
     <form>
@@ -44,6 +56,26 @@ export default function AttributesForm(props) {
       >
         Randomize
       </Button>
+
+      <Box sx={modalStyle}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button 
+            variant="contained" 
+            endIcon={<ContentCopyIcon />}
+            sx={{ margin: '0px 0px 20px 10px' }}
+            onClick={() => {
+              copyObj(JSON.stringify(values));
+            }}
+          >
+            Copy Object
+          </Button>
+        </div>
+        <TextareaAutosize 
+          value={JSON.stringify(values,  null, 2)} 
+          onChange={handleTextChange}
+          className="code-view" />
+      </Box>
+
     </form>
   );
 

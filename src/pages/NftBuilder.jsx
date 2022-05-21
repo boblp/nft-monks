@@ -23,6 +23,16 @@ export default function NftSpecifics () {
     });
   };
 
+  const handleTextChange = (e) => {
+    let obj = traitsSelected;
+    try{
+      obj = JSON.parse(e.target.value);
+    }catch(e){
+      console.log(e)
+    }
+    setTraitsSelected(obj);
+  };
+
   const randomize = () => {
     const randomObj = {}
     Object.entries(traits).forEach((v) => {
@@ -43,6 +53,7 @@ export default function NftSpecifics () {
       <Grid item xs={4} m={5} sx={{ marginTop: '10px' }}>
         <AForm 
           handleInputChange={handleInputChange}
+          handleTextChange={handleTextChange}
           values={traitsSelected}
           traits={traits}
           randomize={randomize} />

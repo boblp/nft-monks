@@ -5,20 +5,17 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import '../scss/nftImages.scss';
 
 export default function Nft({ nftObject, controls, size, viewJSON }) {
-  const {
-    backgrounds,
-    bodies,
-    faces,
-    hats,
-  } = nftObject;
+
+  const imgArray = Object.keys(nftObject).map(e=>{
+    try{
+      return require(`../images/test_images/${e}/${nftObject[e]}.png`);
+    }catch(e){
+      return '';
+    }
+  });
 
   const download = () => {
-    mergeImages([
-      require(`../images/test_images/backgrounds/${backgrounds}.png`),
-      require(`../images/test_images/bodies/${bodies}.png`),
-      require(`../images/test_images/faces/${faces}.png`),
-      require(`../images/test_images/hats/${hats}.png`)
-    ]).then((b64) => {
+    mergeImages(imgArray).then((b64) => {
       downloadImg(b64, "image", ".png");
     });
   }
@@ -56,10 +53,11 @@ export default function Nft({ nftObject, controls, size, viewJSON }) {
   return (
     <div className="nft-box" style={{ width: size }}>
       { controls && <Controls /> }
-      <img className="nft-img" src={require(`../images/test_images/backgrounds/${backgrounds}.png`)} alt="not found" />
-      <img className="nft-img" src={require(`../images/test_images/bodies/${bodies}.png`)} alt="not found" />
-      <img className="nft-img" src={require(`../images/test_images/faces/${faces}.png`)} alt="not found" />
-      <img className="nft-img" src={require(`../images/test_images/hats/${hats}.png`)} alt="not found" />
+      {imgArray.map(img=>{
+        return (
+          <img className="nft-img" src={img} alt="not found" />
+        );
+      })}
     </div>
   );
 };
