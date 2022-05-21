@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from "react-router-dom";
 import {
@@ -53,6 +53,9 @@ function Navbar() {
             </Link>
             <Link to="nft_builder" style={{ textDecoration: 'none', color: 'inherit' }}>
               <MenuItem onClick={handleClose}>NFT Builder</MenuItem>
+            </Link>
+            <Link to="edit_pools" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <MenuItem onClick={handleClose}>Edit Pools</MenuItem>
             </Link>
             <Link to="pool_analytics" style={{ textDecoration: 'none', color: 'inherit' }}>
               <MenuItem onClick={handleClose}>Pool Analytics</MenuItem>

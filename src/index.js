@@ -5,6 +5,7 @@ import App from './App';
 import BulkGenerator from './pages/BulkGenerator';
 import NftBuilder from './pages/NftBuilder';
 import PoolAnalytics from './pages/PoolAnalytics';
+import EditPools from './pages/EditPools';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -16,6 +17,7 @@ root.render(
         <Route path="bulk_generator" element={<BulkGenerator />} />
         <Route path="nft_builder" element={<NftBuilder />} />
         <Route path="pool_analytics" element={<PoolAnalytics />} />
+        <Route path="edit_pools" element={<EditPools />} />
       </Route>
     </Routes>
   </BrowserRouter>
