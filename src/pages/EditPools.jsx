@@ -155,6 +155,7 @@ export default function EditPools () {
               <TableRow
                 key={i}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                hover
               >
                 <TableCell padding="checkbox">
                   <Checkbox

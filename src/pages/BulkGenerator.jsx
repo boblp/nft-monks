@@ -25,7 +25,6 @@ export default function BulkGenerator (){
 
   const generate = () => {
     const newNft = generateNFT(generateAmount);
-
     setNftPool([...nftPool, ...newNft])
   }
 
@@ -48,6 +47,12 @@ export default function BulkGenerator (){
       setNftPool([...nftPool, parsedVal])
     } else {
       alert('Invalid array or object')
+    }
+  }
+
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      generate();
     }
   }
 
@@ -93,6 +98,7 @@ export default function BulkGenerator (){
             size="small"
             value={generateAmount}
             onChange={e => setGenerateAmount(e.target.value)}
+            onKeyPress={handleKeyPress}
             type="number"
             sx={{ width: '80px' }}
             focused />
