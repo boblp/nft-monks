@@ -6,16 +6,9 @@ import MenuItem from "@mui/material/MenuItem";
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { InputLabel, Button, TextareaAutosize } from "@mui/material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Box from '@mui/material/Box';
 
 export default function AttributesForm(props) {
   const { traits, handleInputChange, handleTextChange, values, randomize } = props;
-  const modalStyle = {
-    position: 'relative',
-    width: 400,
-    margin: '20px 0px 0px 0px',
-    p: 2
-  };
 
   const copyObj = (obj) => {
     navigator.clipboard.writeText(obj);
@@ -56,27 +49,22 @@ export default function AttributesForm(props) {
       >
         Randomize
       </Button>
-
-      <Box sx={modalStyle}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button 
-            variant="contained" 
-            endIcon={<ContentCopyIcon />}
-            sx={{ margin: '0px 0px 20px 10px' }}
-            onClick={() => {
-              copyObj(JSON.stringify(values));
-            }}
-          >
-            Copy Object
-          </Button>
-        </div>
-        <TextareaAutosize 
-          value={JSON.stringify(values,  null, 2)} 
-          onChange={handleTextChange}
-          className="code-view" />
-      </Box>
-
+      <Button 
+        variant="contained" 
+        endIcon={<ContentCopyIcon />}
+        sx={{ margin: '0px 0px 20px 10px' }}
+        fullWidth
+        onClick={() => {
+          copyObj(JSON.stringify(values));
+        }}
+      >
+        Copy Object
+      </Button>
+      <TextareaAutosize 
+        value={JSON.stringify(values,  null, 2)} 
+        onChange={handleTextChange}
+        style={{ width: '-webkit-fill-available', border: '1px solid #333', margin: '10px 0' }}
+        className="code-view" />
     </form>
   );
-
-}
+};

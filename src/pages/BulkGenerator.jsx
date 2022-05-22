@@ -21,7 +21,6 @@ export default function BulkGenerator (){
   const [showDelete, setShowDelete] = useState(false);
   const handleShowDelete = () => setShowDelete(true);
   const handleHideDelete = () => setShowDelete(false);
-
   const handleModalClose = () => setModalOpen(false);
 
   const generate = () => {

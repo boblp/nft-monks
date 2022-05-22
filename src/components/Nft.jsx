@@ -53,9 +53,9 @@ export default function Nft({ nftObject, controls, size, viewJSON }) {
   return (
     <div className="nft-box" style={{ width: size }}>
       { controls && <Controls /> }
-      {imgArray.map(img=>{
+      { imgArray.map((img, i)=>{
         return (
-          <img className="nft-img" src={img} alt="not found" />
+          <img className="nft-img" key={i} src={img} alt="not found" />
         );
       })}
     </div>
