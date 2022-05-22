@@ -6,13 +6,16 @@ import '../scss/nftImages.scss';
 
 export default function Nft({ nftObject, controls, size, viewJSON }) {
 
-  const imgArray = Object.keys(nftObject).map(e=>{
-    try{
-      return require(`../images/test_images/${e}/${nftObject[e]}.png`);
-    }catch(e){
-      return '';
-    }
-  });
+  const imgArray = Object.keys(nftObject)
+    .filter(v=>{
+      try{
+        return require(`../images/test_images/${v}/${nftObject[v]}.png`);
+      }catch(e){
+        return false;
+      }
+    })
+    .map(e=>{return require(`../images/test_images/${e}/${nftObject[e]}.png`)})
+  ;
 
   const download = () => {
     mergeImages(imgArray).then((b64) => {
