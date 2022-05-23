@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
@@ -23,8 +24,10 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 export default function EditPools () {
+  const navigate = useNavigate();
   const [pools, setPools] = useState(['test1', 'test2']);
   const [selectedPool, setSelectedPool] = useState('test1');
   const [poolNfts, setPoolNfts] = useState([{"backgrounds":"3","bodies":"2","faces":"1","hats":"2"},{"backgrounds":"1","bodies":"2","faces":"2","hats":"2"},{"backgrounds":"2","bodies":"2","faces":"1","hats":"2"}]);
@@ -95,7 +98,7 @@ export default function EditPools () {
             })}
           </Select>
         </FormControl>
-        
+
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
           <div>
             <Button 
@@ -117,6 +120,16 @@ export default function EditPools () {
               }}
             >
               Copy Selected
+            </Button>
+            <Button
+              sx={{ marginLeft: '10px'}}
+              variant="contained" 
+              endIcon={<AssessmentIcon />}
+              onClick={() => {
+                navigate(`/pool_analytics?pool=${selectedPool}`, 'test')
+              }}
+            >
+              Analyze
             </Button>
           </div>
           <Button 
