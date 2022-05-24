@@ -13,13 +13,12 @@ export default function ImgDisplay({traitsObj}) {
         alignItems="alignItems">
         <Grid item xs={11} lg={8}>
           <Box>
-            {traitsObj && Object.keys(traitsObj).length > 0 ? 
+            {traitsObj && Object.keys(traitsObj).length > 0 && 
               <Nft 
               nftObject={traitsObj}
               controls={false}
               size="100%"
-              viewJSON={false}/>
-            : ""}
+              viewJSON={false}/>}
           </Box>
         </Grid>
       </Grid>

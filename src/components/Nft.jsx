@@ -9,12 +9,12 @@ export default function Nft({ nftObject, controls, size, viewJSON }) {
   const imgArray = Object.keys(nftObject)
     .filter(v=>{
       try{
-        return require(`../images/test_images/${v}/${nftObject[v]}.png`);
+        return require(`${process.env.REACT_APP_IMG_PATH}/${v}/${nftObject[v]}.png`);
       }catch(e){
         return false;
       }
     })
-    .map(e=>{return require(`../images/test_images/${e}/${nftObject[e]}.png`)})
+    .map(e=>{return require(`${process.env.REACT_APP_IMG_PATH}/${e}/${nftObject[e]}.png`)})
   ;
 
   const download = () => {

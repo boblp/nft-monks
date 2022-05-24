@@ -49,7 +49,6 @@ export default function EditPools () {
   }
 
   const handleModalClose = () => {
-    console.log()
     setOpenInsertModal(false)
   }
 
@@ -61,8 +60,6 @@ export default function EditPools () {
     const filteredNfts = poolNfts.filter((e, i) => {
       return !nftsSelected.includes(i);
     });
-
-    console.log(filteredNfts);
 
     updatePool(selectedPool, filteredNfts).then((response) => {
       setPoolNfts(filteredNfts)
