@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -25,21 +25,31 @@ import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import { getPools, updatePool } from '../models/api';
 
 export default function EditPools () {
   const navigate = useNavigate();
-  const [pools, setPools] = useState(['test1', 'test2']);
-  const [selectedPool, setSelectedPool] = useState('test1');
-  const [poolNfts, setPoolNfts] = useState([{"backgrounds":"3","bodies":"2","faces":"1","hats":"2"},{"backgrounds":"1","bodies":"2","faces":"2","hats":"2"},{"backgrounds":"2","bodies":"2","faces":"1","hats":"2"}]);
+  const [pools, setPools] = useState([]);
+  const [selectedPool, setSelectedPool] = useState('');
+  const [poolNfts, setPoolNfts] = useState([]);
   const [openInsertModal, setOpenInsertModal] = useState(false);
-  const [pastedObj, setPastedObj] = useState('');
+  const [pastedObj, setPastedObj] = useState([]);
   const [nftsSelected, setNftsSelected] = useState([]);
+
+  useEffect(() => {
+    getPools().then((response) => {
+      setPools(response);
+    })
+  }, [])
 
   const handleInputChange = (e) => {
     setSelectedPool(e.target.value);
+    const selectedPoolNfts = pools.find(x => x._id === e.target.value);
+    setPoolNfts(selectedPoolNfts.nfts)
   }
 
   const handleModalClose = () => {
+    console.log()
     setOpenInsertModal(false)
   }
 
@@ -48,7 +58,15 @@ export default function EditPools () {
   }
 
   const deleteSelected = () => {
-    // Delete selected
+    const filteredNfts = poolNfts.filter((e, i) => {
+      return !nftsSelected.includes(i);
+    });
+
+    console.log(filteredNfts);
+
+    updatePool(selectedPool, filteredNfts).then((response) => {
+      setPoolNfts(filteredNfts)
+    });
   }
 
   const selectAll = () => {
@@ -74,6 +92,14 @@ export default function EditPools () {
       setNftsSelected(newArr);
     }
   };
+
+  const updateNfts = () => {
+    const parsedObj = JSON.parse(pastedObj)
+    const allNfts = [...poolNfts, ...parsedObj];
+    updatePool(selectedPool, allNfts).then((response) => {
+      setPoolNfts(allNfts)
+    });
+  }
   
   const modalStyle = {
     position: 'absolute',
@@ -94,7 +120,7 @@ export default function EditPools () {
           <InputLabel sx={{ backgroundColor: 'white' }}>Pool</InputLabel>
           <Select onChange={handleInputChange} value={selectedPool}>
             {pools.map((val, key) => {
-              return (<MenuItem key={key} value={val}>{val}</MenuItem>)
+              return (<MenuItem key={key} value={val._id}>{val.name}</MenuItem>)
             })}
           </Select>
         </FormControl>
@@ -126,7 +152,7 @@ export default function EditPools () {
               variant="contained" 
               endIcon={<AssessmentIcon />}
               onClick={() => {
-                navigate(`/pool_analytics?pool=${selectedPool}`, 'test')
+                navigate(`/pool_analytics?pool=${selectedPool}`)
               }}
             >
               Analyze
@@ -205,7 +231,7 @@ export default function EditPools () {
             placeholder="[{ key: value }]"
             style={{ width: '-webkit-fill-available', border: '1px solid #333', margin: '10px 0' }}
             onChange={(e) => {
-              setPastedObj();
+              setPastedObj(e.target.value);
             }}
           />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -224,7 +250,7 @@ export default function EditPools () {
               variant="contained" 
               endIcon={<SaveIcon />}
               onClick={() => {
-                setOpenInsertModal(true)
+                updateNfts()
               }}
             >
               Save

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import Container from '@mui/material/Container';
-import { generateNFT } from '../generator/generator';
+import { generateNFT } from '../models/generator';
 import Nft from '../components/Nft';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
