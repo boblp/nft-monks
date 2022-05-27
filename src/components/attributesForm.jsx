@@ -42,7 +42,7 @@ export default function AttributesForm(props) {
         color="success"
         fullWidth
         endIcon={<ShuffleIcon />}
-        sx={{ marginTop: '30px', marginLeft: '8px' }}
+        sx={{ margin: '20px 0px', marginLeft: '8px' }}
         onClick={() => {
           randomize();
         }}
@@ -52,7 +52,7 @@ export default function AttributesForm(props) {
       <Button 
         variant="contained" 
         endIcon={<ContentCopyIcon />}
-        sx={{ margin: '0px 0px 20px 10px' }}
+        sx={{ marginLeft: '8px' }}
         fullWidth
         onClick={() => {
           copyObj(JSON.stringify(values));
@@ -63,7 +63,12 @@ export default function AttributesForm(props) {
       <TextareaAutosize 
         value={JSON.stringify(values,  null, 2)} 
         onChange={handleTextChange}
-        style={{ width: '-webkit-fill-available', border: '1px solid #333', margin: '10px 0' }}
+        style={{
+          width: '-webkit-fill-available',
+          border: '1px solid #333',
+          marginLeft: '8px',
+          marginTop: '20px'
+        }}
         className="code-view" />
     </form>
   );

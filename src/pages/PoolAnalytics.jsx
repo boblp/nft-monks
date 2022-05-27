@@ -1,30 +1,53 @@
-import React, { useState } from 'react';
-import { XYPlot, VerticalBarSeries } from 'react-vis';
+import React, { useState, useEffect } from 'react';
+import { FlexibleWidthXYPlot, VerticalBarSeries, XAxis, YAxis } from 'react-vis';
 import {
   Container, Grid, FormControl, InputLabel, MenuItem, Select
 } from '@mui/material';
+import { getPools } from '../models/api';
 
 export default function PoolAnalytics () {
-  const [pools, setPools] = useState(['test1', 'test2']);
-  const [selectedPool, setSelectedPool] = useState('test1');
-  // const [poolNfts, setPoolNfts] = useState([]);
+  const [pools, setPools] = useState([]);
+  const [selectedPool, setSelectedPool] = useState('');
+  const [graphData, setGraphData] = useState();
+
+  
+  useEffect(() => {
+    getPools().then((response) => {
+      setPools(response);
+    })
+  }, [])
 
   const handleInputChange = (e) => {
     setSelectedPool(e.target.value);
+    const selectedPoolNfts = pools.find(x => x._id === e.target.value);
+    setGraphData(getPercentages(selectedPoolNfts.nfts));
   }
 
-  const data = [
-    {x: 0, y: 8},
-    {x: 1, y: 5},
-    {x: 2, y: 4},
-    {x: 3, y: 9},
-    {x: 4, y: 1},
-    {x: 5, y: 7},
-    {x: 6, y: 6},
-    {x: 7, y: 3},
-    {x: 8, y: 2},
-    {x: 9, y: 0}
-  ];
+  const graphColors = ['#f44336', '#ab47bc', '#5c6bc0', '#29b6f6', '#66bb6a', '#ffee58', '#ffa726', '#8d6e63', '#78909c'];
+
+  const getPercentages = (nftArray) => {
+    const hash = structuredClone(nftArray[0])
+    Object.keys(hash).forEach(v => hash[v] = {})
+
+    nftArray.forEach((nft) => {
+      Object.entries(nft).forEach((v) => {
+        hash[v[0]][v[1]] = (hash[v[0]][v[1]] || 0) + 1;
+      })
+    })
+
+    return hash
+  };
+
+  const tableTransform = (obj) => {
+    const transArray = []
+    Object.entries(obj).forEach((v, i) => {
+      transArray.push({
+        x: v[0],
+        y: v[1],
+      })
+    })
+    return transArray
+  }
 
   return (
     <Container maxWidth="xl">
@@ -33,15 +56,28 @@ export default function PoolAnalytics () {
           <InputLabel sx={{ backgroundColor: 'white' }}>Pool</InputLabel>
           <Select onChange={handleInputChange} value={selectedPool}>
             {pools.map((val, key) => {
-              return (<MenuItem key={key} value={val}>{val}</MenuItem>)
+              return (<MenuItem key={key} value={val._id}>{val.name}</MenuItem>)
             })}
           </Select>
         </FormControl>
+      
+        {typeof graphData === 'object' && Object.entries(graphData).map((v, k) => {
+          return (
+            <Grid item key={k} xs={3}>
+              <h4 style={{ textAlign: 'center' }}>{v[0]}</h4>
+              <FlexibleWidthXYPlot
+                height={200}
+                stroke="black">
+                <XAxis />
+                <YAxis />
+                <VerticalBarSeries
+                  data={tableTransform(v[1])}
+                  color={graphColors[k]} />
+              </FlexibleWidthXYPlot>
+            </Grid>
+          )
+        })}
       </Grid>
-
-      <XYPlot height={200} width={200}>
-        <VerticalBarSeries data={data} />
-      </XYPlot>
     </Container>
   )
 }

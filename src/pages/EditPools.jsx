@@ -116,8 +116,8 @@ export default function EditPools () {
         <FormControl sx={{ margin: '20px 0px' }} fullWidth>
           <InputLabel sx={{ backgroundColor: 'white' }}>Pool</InputLabel>
           <Select onChange={handleInputChange} value={selectedPool}>
-            {pools.map((val, key) => {
-              return (<MenuItem key={key} value={val._id}>{val.name}</MenuItem>)
+            {pools.map((v, k) => {
+              return (<MenuItem key={k} value={v._id}>{v.name}</MenuItem>)
             })}
           </Select>
         </FormControl>
