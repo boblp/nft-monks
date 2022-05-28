@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FlexibleWidthXYPlot, VerticalBarSeries, XAxis, YAxis } from 'react-vis';
+import { 
+  XYPlot,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  VerticalBarSeries,
+  RadialChart,
+  Hint
+ } from 'react-vis';
 import {
   Container, Grid, FormControl, InputLabel, MenuItem, Select
 } from '@mui/material';
@@ -9,7 +18,7 @@ export default function PoolAnalytics () {
   const [pools, setPools] = useState([]);
   const [selectedPool, setSelectedPool] = useState('');
   const [graphData, setGraphData] = useState();
-
+  const [val, setVal] = useState(false);
   
   useEffect(() => {
     getPools().then((response) => {
@@ -26,7 +35,7 @@ export default function PoolAnalytics () {
   const graphColors = ['#f44336', '#ab47bc', '#5c6bc0', '#29b6f6', '#66bb6a', '#ffee58', '#ffa726', '#8d6e63', '#78909c'];
 
   const getPercentages = (nftArray) => {
-    const hash = structuredClone(nftArray[0])
+    const hash = JSON.parse(JSON.stringify(nftArray[0]))
     Object.keys(hash).forEach(v => hash[v] = {})
 
     nftArray.forEach((nft) => {
@@ -38,13 +47,20 @@ export default function PoolAnalytics () {
     return hash
   };
 
-  const tableTransform = (obj) => {
+  const tableTransform = (obj, type) => {
     const transArray = []
     Object.entries(obj).forEach((v, i) => {
-      transArray.push({
-        x: v[0],
-        y: v[1],
-      })
+      if(type == "pie"){
+        transArray.push({
+          angle: v[1], 
+          label:v[0]
+        })
+      }else{
+        transArray.push({
+          x: v[0],
+          y: v[1],
+        })
+      }
     })
     return transArray
   }
@@ -65,15 +81,33 @@ export default function PoolAnalytics () {
           return (
             <Grid item key={k} xs={3}>
               <h4 style={{ textAlign: 'center' }}>{v[0]}</h4>
-              <FlexibleWidthXYPlot
-                height={200}
-                stroke="black">
+              <XYPlot
+                className="clustered-stacked-bar-chart-example"
+                xType="ordinal"
+                stackBy="y"
+                width={300}
+                height={300}
+              >
+                <VerticalGridLines />
+                <HorizontalGridLines />
                 <XAxis />
                 <YAxis />
                 <VerticalBarSeries
-                  data={tableTransform(v[1])}
-                  color={graphColors[k]} />
-              </FlexibleWidthXYPlot>
+                  cluster="2015"
+                  color={graphColors[k]}
+                  data={tableTransform(v[1], 'bar')}
+                />
+              </XYPlot>
+              <RadialChart
+                data={tableTransform(v[1], 'pie')}
+                showLabels
+                labelsRadiusMultiplier={0.9}
+                onValueMouseOver={v => setVal(v)}
+                onSeriesMouseOut={v => setVal(false)}
+                width={300}
+                height={300}>
+                {val !== false && <p>{val.angle}</p>}   
+              </RadialChart>
             </Grid>
           )
         })}
