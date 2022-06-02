@@ -180,10 +180,17 @@ export default function EditPools () {
                   onChange={selectAll}
                 />
               </TableCell>
-              <TableCell>Backgrounds</TableCell>
-              <TableCell>Bodies</TableCell>
-              <TableCell>Faces</TableCell>
-              <TableCell>Hats</TableCell>
+              {poolNfts.length > 0 ? 
+                Object.keys(poolNfts[0]).map((v, k)=>{
+                  return <TableCell key={k}>{v}</TableCell>
+                })
+              :
+                pools[0] && (
+                  Object.keys(pools[0]?.nfts[0])?.map((v, k)=>{
+                    return <TableCell key={k}>{v}</TableCell>
+                  })
+                )
+              }
             </TableRow>
           </TableHead>
           <TableBody>

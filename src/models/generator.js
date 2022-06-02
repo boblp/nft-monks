@@ -1,9 +1,4 @@
-const DATA = {
-  "backgrounds": { "1": 35, "2": 25, "3": 20, "4": 13, "5": 5, "6": 2 },
-  "bodies": { "1": 35, "2": 25, "3": 20, "4": 13, "5": 5, "6": 2 },
-  "faces": { "1": 50, "2": 30, "3": 20 },
-  "hats": { "1": 50, "2": 30, "3": 20 }
-};
+import { traitsWeights } from '../traits';
 
 const getRandomWeighted = (options) => {
   const arrayData = Object.entries(options);
@@ -36,7 +31,7 @@ const getResultPercentages = (dataset) => {
 const generate = (times, attr) => {
   const response = [];
   for (var i=0; i<times; i++) {
-    response.push(getRandomWeighted(DATA[attr]));
+    response.push(getRandomWeighted(traitsWeights[attr]));
   }
 
   return getResultPercentages(response);
