@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import Container from '@mui/material/Container';
@@ -19,13 +19,20 @@ export default function BulkGenerator (){
   const [modalOpen, setModalOpen] = useState(false);
   const [jsonObj, setJsonObj] = useState('');
   const [showDelete, setShowDelete] = useState(false);
+  const [containerHeight, setContainerHeight] = useState('0')
   const handleShowDelete = () => setShowDelete(true);
   const handleHideDelete = () => setShowDelete(false);
   const handleModalClose = () => setModalOpen(false);
+  const mainContainer = useRef(null)
 
   const generate = () => {
     const newNft = generateNFT(generateAmount);
-    setNftPool([...nftPool, ...newNft])
+    setNftPool([...nftPool, ...newNft]);
+
+    const width = mainContainer.current ? mainContainer.current.clientWidth : 100;
+    const widthOffset = width + 30;
+
+    setContainerHeight(`${widthOffset}px`);
   }
 
   const viewJSON = (nftObject) => {
@@ -152,13 +159,14 @@ export default function BulkGenerator (){
           {nftPool.map((nft, i) => {        
             return (
               <Grid
+                ref={mainContainer}
                 xs={4}
                 sm={3}
                 md={2}
                 lg={1}
                 key={i}
                 item
-                sx={{ position: 'relative' }}
+                sx={{ position: 'relative', height: containerHeight }}
                 onMouseOver={handleShowDelete}
                 onMouseLeave={handleHideDelete}>
                 {showDelete && <IconButton
