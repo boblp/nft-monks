@@ -41,19 +41,23 @@ export const generateNFT = (amount) => {
   let nft = {};
   const response = [];
 
-  let background, body, face, hat;
+  let background, weapon, body, armor, head, hand;
 
   for (var i=0; i<amount; i++) {
     background = generate(1, 'backgrounds');
+    weapon = generate(1, 'weapons');
     body = generate(1, 'bodies');
-    face = generate(1, 'faces');
-    hat = generate(1, 'hats');
+    armor = generate(1, 'armors');
+    head = generate(1, 'heads');
+    hand = generate(1, 'hands');
 
     nft = {
       backgrounds: background[0][0],
+      weapons: weapon[0][0],
       bodies: body[0][0],
-      faces: face[0][0],
-      hats: hat[0][0],
+      armors: armor[0][0],
+      heads: head[0][0],
+      hands: hand[0][0],
     };
 
     response.push(nft)
@@ -61,7 +65,3 @@ export const generateNFT = (amount) => {
    
   return response;
 }
-
-// console.log(generate(10000, 'backgrounds'))
-// console.log(generateNFT())
-// console.log(generateNFT(10));
