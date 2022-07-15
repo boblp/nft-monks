@@ -41,23 +41,14 @@ export const generateNFT = (amount) => {
   let nft = {};
   const response = [];
 
-  let background, weapon, body, armor, head, hand;
-
   for (var i=0; i<amount; i++) {
-    background = generate(1, 'backgrounds');
-    weapon = generate(1, 'weapons');
-    body = generate(1, 'bodies');
-    armor = generate(1, 'armors');
-    head = generate(1, 'heads');
-    hand = generate(1, 'hands');
-
     nft = {
-      backgrounds: background[0][0],
-      weapons: weapon[0][0],
-      bodies: body[0][0],
-      armors: armor[0][0],
-      heads: head[0][0],
-      hands: hand[0][0],
+      backgrounds: generate(1, 'backgrounds')[0][0],
+      weapons: generate(1, 'weapons')[0][0],
+      bodies: generate(1, 'bodies')[0][0],
+      armors: generate(1, 'armors')[0][0],
+      heads: generate(1, 'heads')[0][0],
+      hands: generate(1, 'hands')[0][0],
     };
 
     response.push(nft)
