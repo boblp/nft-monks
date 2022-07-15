@@ -40,16 +40,12 @@ const generate = (times, attr) => {
 export const generateNFT = (amount) => {
   let nft = {};
   const response = [];
-
+  
   for (var i=0; i<amount; i++) {
-    nft = {
-      backgrounds: generate(1, 'backgrounds')[0][0],
-      weapons: generate(1, 'weapons')[0][0],
-      bodies: generate(1, 'bodies')[0][0],
-      armors: generate(1, 'armors')[0][0],
-      heads: generate(1, 'heads')[0][0],
-      hands: generate(1, 'hands')[0][0],
-    };
+    nft = {}
+    Object.keys(traitsWeights).map((attr)=>{
+      nft[attr] = generate(1, attr)[0][0]
+    })
 
     response.push(nft)
   }
