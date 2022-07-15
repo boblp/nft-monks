@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from "@mui/material/Grid";
-import { traits } from '../traits';
+import { traitsWeights } from '../traits';
 import AForm from '../components/attributesForm';
 import ImgDisplay from '../components/imgDisplay';
 
@@ -9,8 +9,8 @@ export default function NftSpecifics () {
   
   useEffect(()=>{
     let defaultValues = {};
-    Object.keys(traits).forEach(trait => {
-      defaultValues[trait] = traits[trait][0];
+    Object.keys(traitsWeights).forEach(trait => {
+      defaultValues[trait] = Object.keys(traitsWeights[trait])[0];
     })
     setTraitsSelected(defaultValues);
   },[])
@@ -35,9 +35,9 @@ export default function NftSpecifics () {
 
   const randomize = () => {
     const randomObj = {}
-    Object.entries(traits).forEach((v) => {
-      const random = v[1][(Math.random() * v[1].length) | 0];
-      randomObj[v[0]] = random;
+    Object.entries(traitsWeights).forEach((v) => {
+      const random = Object.keys(traitsWeights[v])[1][(Math.random() * Object.keys(traitsWeights[v])[1].length) | 0];
+      randomObj[Object.keys(traitsWeights[v])[0]] = random;
     })
 
     setTraitsSelected(randomObj)
@@ -55,7 +55,7 @@ export default function NftSpecifics () {
           handleInputChange={handleInputChange}
           handleTextChange={handleTextChange}
           values={traitsSelected}
-          traits={traits}
+          traits={traitsWeights}
           randomize={randomize} />
       </Grid>
       <Grid item xs m={3}>

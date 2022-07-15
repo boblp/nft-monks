@@ -28,7 +28,7 @@ export default function AttributesForm(props) {
               <FormControl key={index} sx={{ m: 1, minWidth: 120 }} fullWidth size="small">
                 <InputLabel sx={{ backgroundColor: 'white' }}>{trait}</InputLabel>
                 <Select name={trait} value={values[trait] ?? ""} onChange={handleInputChange}>
-                  {traits[trait].map((option, key) => {
+                  {Object.keys(traits[trait]).map((option, key) => {
                     return (<MenuItem key={key} value={option}>{option}</MenuItem>)
                   })}
                 </Select>

@@ -1,12 +1,3 @@
-export const traits = {
-  backgrounds: ["1", "2", "3", "4", "5", "6", "7"],
-  weapons: ["0", "1", "2", "3", "4"],
-  bodies: ["1"],
-  armors: ["0", "1", "2", "3", "4", "5"],
-  heads: ["0", "1", "2", "3", "4", "5"],
-  hands: ["0", "1", "2", "3", "4", "5"],
-};
-
 export const traitsWeights = {
   "backgrounds": {
     "1": 16,
